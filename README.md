@@ -163,11 +163,23 @@ cd CardioScope-XAI
 
 # Install dependencies
 pip install -r requirements.txt
+```
 
-# Run EDA notebook
-jupyter notebook notebooks/01_EDA.ipynb
+**Place the dataset:**
+Download `heart_disease_uci.csv` from Kaggle and place it at `data/raw/heart_disease_uci.csv`.
 
-# Launch the dashboard
+**Run notebooks in order:**
+```bash
+jupyter notebook notebooks/01_EDA.ipynb              # Explore data
+jupyter notebook notebooks/02_preprocessing.ipynb    # Engineer features + save scaler
+jupyter notebook notebooks/03_xgboost_model.ipynb   # Train XGBoost + log to MLflow
+jupyter notebook notebooks/04_lstm_model.ipynb       # Train LSTM + save embeddings
+jupyter notebook notebooks/05_fusion.ipynb           # Train fusion classifier
+jupyter notebook notebooks/06_shap_explainability.ipynb  # Compute SHAP values
+```
+
+**Launch the dashboard:**
+```bash
 streamlit run app/app.py
 ```
 
@@ -184,17 +196,17 @@ streamlit run app/app.py
 
 ## 📌 Project Status
 
-🔨 **In Progress** — Building Phase 1 (XGBoost + SHAP + Streamlit)
+✅ **Complete** — All core modules and dashboard built
 
 - [x] Problem Statement
 - [x] Repository Setup
-- [ ] EDA
-- [ ] Preprocessing
-- [ ] XGBoost Model
-- [ ] LSTM Model
-- [ ] Fusion Layer
-- [ ] SHAP Explainability
-- [ ] Streamlit Dashboard
+- [x] EDA (`notebooks/01_EDA.ipynb`)
+- [x] Preprocessing (`notebooks/02_preprocessing.ipynb`)
+- [x] XGBoost Model + MLflow (`notebooks/03_xgboost_model.ipynb`)
+- [x] LSTM Model + Temporal Data (`notebooks/04_lstm_model.ipynb`)
+- [x] Fusion Layer (`notebooks/05_fusion.ipynb`)
+- [x] SHAP Explainability (`notebooks/06_shap_explainability.ipynb`)
+- [x] Streamlit Dashboard — Prediction, Explanation, Trends, Simulation
 - [ ] LinkedIn Post
 
 ---

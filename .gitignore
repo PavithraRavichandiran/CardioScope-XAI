@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+
+# Trained model artifacts (large binaries — regenerate by running notebooks)
+models/*.pkl
+models/*.keras
+models/*.h5
+models/*.json
+models/*.ubj
+
+# Generated data files (regenerate by running notebooks)
+data/processed/train.csv
+data/processed/test.csv
+data/processed/shap_values.npy
+data/processed/shap_base_value.npy
+data/temporal/temporal_sequences.npy
+data/temporal/temporal_labels.npy
+data/temporal/lstm_embeddings.npy
+
+# Raw data (too large / not redistributable)
+data/raw/*.csv
+
+# MLflow experiment tracking
+mlflow/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
