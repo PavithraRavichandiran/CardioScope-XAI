@@ -24,7 +24,7 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 from pathlib import Path
 
-SCALER_PATH = Path("models/scaler.pkl")
+SCALER_PATH = Path(__file__).resolve().parents[1] / "models" / "scaler.pkl"
 
 
 def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
@@ -98,7 +98,12 @@ def scale_continuous(
     else:
         if scaler is None:
             raise ValueError("Provide a fitted scaler when fit=False.")
+        # Use the exact columns the scaler was fitted on
+        float_cols = list(scaler.feature_names_in_)
+        # Cast to float so transform works regardless of input dtype
+        df[float_cols] = df[float_cols].astype(float)
         df[float_cols] = scaler.transform(df[float_cols])
+        return df, scaler
 
     return df, scaler
 
@@ -110,6 +115,9 @@ def load_scaler() -> StandardScaler:
             f"Scaler not found at {SCALER_PATH}. Run the preprocessing pipeline first."
         )
     return joblib.load(SCALER_PATH)
+
+
+FEATURE_COLS_PATH = Path(__file__).resolve().parents[1] / "models" / "feature_columns.pkl"
 
 
 def build_feature_matrix(
@@ -128,12 +136,20 @@ def build_feature_matrix(
     Returns:
         (X_processed, scaler) — X has no target column.
     """
-    target = df["target"].copy() if "target" in df.columns else None
-
     X = df.drop(columns=["target"], errors="ignore")
     X = engineer_features(X)
     X = encode_categoricals(X)
     X, scaler = scale_continuous(X, fit=fit_scaler, scaler=scaler)
+
+    if fit_scaler:
+        # Save column order so inference can reindex to match
+        FEATURE_COLS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        joblib.dump(X.columns.tolist(), FEATURE_COLS_PATH)
+    else:
+        # Reindex to match training columns — fills any missing OHE cols with 0
+        if FEATURE_COLS_PATH.exists():
+            expected_cols = joblib.load(FEATURE_COLS_PATH)
+            X = X.reindex(columns=expected_cols, fill_value=0)
 
     print(f"[feature_engineering] Final feature matrix: {X.shape[1]} features, {X.shape[0]} samples.")
     return X, scaler

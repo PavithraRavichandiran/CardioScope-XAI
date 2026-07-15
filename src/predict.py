@@ -21,7 +21,7 @@ from src.fusion import load_model as load_fusion, predict_single, RISK_LABELS, R
 from src.explainability import build_explainer, get_patient_explanation
 from src.temporal_data import generate_temporal_sequences, normalize_sequences, N_TIMESTEPS
 
-SCALER_PATH = Path("models/scaler.pkl")
+SCALER_PATH = Path(__file__).resolve().parents[1] / "models" / "scaler.pkl"
 
 # ── Model cache (loaded once per session) ─────────────────────────────────────
 

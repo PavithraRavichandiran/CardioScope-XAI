@@ -20,7 +20,8 @@ from xgboost import XGBClassifier
 import mlflow
 import mlflow.xgboost
 
-MODEL_PATH      = Path("models/xgboost_model.pkl")
+_ROOT           = Path(__file__).resolve().parents[1]
+MODEL_PATH      = _ROOT / "models" / "xgboost_model.pkl"
 MLFLOW_TRACKING = "mlflow"
 EXPERIMENT_NAME = "CardioScope-XAI / XGBoost"
 RANDOM_STATE    = 42

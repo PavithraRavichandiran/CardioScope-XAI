@@ -25,7 +25,8 @@ from sklearn.metrics import (
 )
 import mlflow
 
-FUSION_MODEL_PATH  = Path("models/fusion_model.pkl")
+_ROOT              = Path(__file__).resolve().parents[1]
+FUSION_MODEL_PATH  = _ROOT / "models" / "fusion_model.pkl"
 MLFLOW_TRACKING    = "mlflow"
 EXPERIMENT_NAME    = "CardioScope-XAI / Fusion"
 RANDOM_STATE       = 42

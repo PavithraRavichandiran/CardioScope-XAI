@@ -16,8 +16,9 @@ import shap
 from pathlib import Path
 from xgboost import XGBClassifier
 
-SHAP_VALUES_PATH = Path("data/processed/shap_values.npy")
-SHAP_BASE_PATH   = Path("data/processed/shap_base_value.npy")
+_ROOT            = Path(__file__).resolve().parents[1]
+SHAP_VALUES_PATH = _ROOT / "data" / "processed" / "shap_values.npy"
+SHAP_BASE_PATH   = _ROOT / "data" / "processed" / "shap_base_value.npy"
 
 
 def build_explainer(model: XGBClassifier) -> shap.TreeExplainer:

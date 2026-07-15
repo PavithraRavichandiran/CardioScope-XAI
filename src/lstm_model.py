@@ -26,8 +26,9 @@ from tensorflow.keras.optimizers import Adam
 import mlflow
 import mlflow.keras
 
-MODEL_PATH     = Path("models/lstm_model.keras")
-ENCODER_PATH   = Path("models/lstm_encoder.keras")
+_ROOT           = Path(__file__).resolve().parents[1]
+MODEL_PATH      = _ROOT / "models" / "lstm_model.keras"
+ENCODER_PATH    = _ROOT / "models" / "lstm_encoder.keras"
 MLFLOW_TRACKING = "mlflow"
 EXPERIMENT_NAME = "CardioScope-XAI / LSTM"
 RANDOM_STATE    = 42

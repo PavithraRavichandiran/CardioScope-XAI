@@ -80,7 +80,6 @@ if submitted:
         "chol": chol, "fbs": fbs, "restecg": restecg, "thalach": thalach,
         "exang": exang, "oldpeak": oldpeak, "slope": slope, "ca": ca, "thal": thal,
     }
-
     with st.spinner("Running CardioScope-XAI inference..."):
         try:
             from src.predict import predict
@@ -91,6 +90,20 @@ if submitted:
             st.error(f"Inference failed: {e}")
             st.info("Make sure all models are trained and saved in the `models/` directory.")
             st.stop()
+
+    import pprint
+    output_summary = {
+        "probability": result["probability"],
+        "risk_tier":   result["risk_tier"],
+        "risk_label":  result["risk_label"],
+        "xgb_prob":    result["xgb_prob"],
+    }
+    print("\n" + "="*50)
+    print("INPUTS:")
+    pprint.pprint(clinical_inputs)
+    print("\nOUTPUTS:")
+    pprint.pprint(output_summary)
+    print("="*50 + "\n")
 
     st.divider()
     st.subheader("Risk Assessment Result")

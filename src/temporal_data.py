@@ -13,8 +13,9 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-TEMPORAL_PATH   = Path("data/temporal/temporal_sequences.npy")
-TEMPORAL_LABELS = Path("data/temporal/temporal_labels.npy")
+_ROOT           = Path(__file__).resolve().parents[1]
+TEMPORAL_PATH   = _ROOT / "data" / "temporal" / "temporal_sequences.npy"
+TEMPORAL_LABELS = _ROOT / "data" / "temporal" / "temporal_labels.npy"
 N_TIMESTEPS     = 12
 TEMPORAL_FEATURES = ["systolic_bp", "heart_rate", "cholesterol", "oldpeak"]
 
